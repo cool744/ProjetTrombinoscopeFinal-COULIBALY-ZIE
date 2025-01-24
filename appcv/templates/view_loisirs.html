@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Loisirs</title>
+</head>
+<body>
+    <h1>Mes Loisirs</h1>
+
+    {% if loisirs %}
+        <ul>
+            {% for loisir in loisirs %}
+                <li>
+                    <p>{{ loisir.nom }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Vous n'avez pas encore ajouté de loisirs.</p>
+    {% endif %}
+
+    <a href="{% url 'create_or_edit_loisir' %}">
+        <button type="button">Ajouter un loisir</button>
+    </a>
+</body>
+</html>

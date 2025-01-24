@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Langues</title>
+</head>
+<body>
+    <h1>Mes Langues</h1>
+
+    {% if langues %}
+        <ul>
+            {% for langue in langues %}
+                <li>
+                    <strong>{{ langue.nom }}</strong><br>
+                    <p>Niveau : {{ langue.niveau }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Vous n'avez pas encore ajouté de langues.</p>
+    {% endif %}
+
+    <a href="{% url 'create_or_edit_langue' %}">
+        <button type="button">Ajouter une langue</button>
+    </a>
+</body>
+</html>
