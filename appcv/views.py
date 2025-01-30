@@ -536,3 +536,6 @@ def send_cv_email(request, cv_id):
         return redirect('view_cvs')
 
     return render(request, 'email_cv.html', {'cv': cv})
+
+
+

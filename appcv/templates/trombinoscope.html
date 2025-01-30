@@ -12,6 +12,12 @@
             padding: 0;
             background: linear-gradient(135deg, #fdfbfb, #ebedee);
             color: #333;
+            scrollbar-width: none; /* Cacher la barre de défilement pour Firefox */
+            -ms-overflow-style: none; /* Cacher pour Internet Explorer et Edge */
+        }
+
+        body::-webkit-scrollbar {
+            display: none; /* Cacher la barre de défilement pour Chrome, Safari et Opera */
         }
 
         h1 {
@@ -39,14 +45,42 @@
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
 
+        /* Header layout */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .header .actions {
+            display: flex;
+            gap: 15px;
+        }
+
         /* Container pour la grille */
         .trombinoscope-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin: 20px auto;
             padding: 20px;
             max-width: 1200px;
+            margin-top: 100px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         /* Carte de chaque personne */
@@ -58,11 +92,12 @@
             padding: 20px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
+            height: 300px;
         }
 
         .person-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
         }
 
         /* Style de l'image */
@@ -86,10 +121,14 @@
             font-weight: 500;
             color: #444;
             margin: 5px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* Lien vers le CV */
         .person-card a {
+            position: relative;
             display: inline-block;
             text-decoration: none;
             color: #007BFF;
@@ -98,16 +137,58 @@
             transition: color 0.3s ease;
         }
 
+        .person-card a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #007BFF;
+            transition: width 0.3s;
+            margin-top: 5px;
+        }
+
         .person-card a:hover {
             color: #0056b3;
+        }
+
+        .person-card a:hover::after {
+            width: 100%;
+        }
+
+        /* Animation globale pour le conteneur */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Meilleure responsivité pour petits écrans */
+        @media (max-width: 768px) {
+            .trombinoscope-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .trombinoscope-container {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Trombinoscope</h1>
-    <div class="actions" style="text-align: center;">
-        <a href="{% url 'formulaire' %}" class="btn-primary">Connexion</a>
-        <a href="{% url 'register' %}" class="btn-primary">Inscription</a>
+    <div class="header">
+        <div class="title">Trombinoscope</div>
+        <div class="actions">
+            <a href="{% url 'formulaire' %}" class="btn-primary">Connexion</a>
+            <a href="{% url 'register' %}" class="btn-primary">Inscription</a>
+        </div>
     </div>
 
     <div class="trombinoscope-container">
@@ -122,7 +203,7 @@
             {% endif %}
             <p>{{ item.personne.prenom }} <br>{{ item.personne.nom }}</p>
             {% if item.premier_cv %}
-                <a href="{% url 'cv_detail' item.premier_cv.id %}">Voir le CV</a>
+                <a href="{% url 'cv_detail' item.premier_cv.id %}">Consulter le CV</a>
             {% else %}
                 <p>Aucun CV disponible</p>
             {% endif %}

@@ -47,6 +47,28 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        /* Style pour le bouton de téléchargement */
+        .download-button {
+            display: inline-block;
+            color: white;
+            background-color: red;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .download-button:hover {
+            background-color: darkred;
+        }
+
+        .download-button:active {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -58,17 +80,16 @@
         <h2>{{ personne.prenom }} {{ personne.nom }}</h2>
         {% if personne.photo and personne.photo.url %}
         <img src="{{ personne.photo.url }}" alt="Photo de {{ personne.prenom }}" style="width: 150px; height: auto; border-radius: 50%;">
-    {% else %}
+        {% else %}
         <p>Aucune photo disponible.</p>
         <!-- Optionnel : afficher une image par défaut -->
         <img src="/media/photos/default.jpg" alt="Image par défaut" style="width: 150px; height: auto; border-radius: 50%;">
-    {% endif %}
-    
+        {% endif %}
+
         <p>Email : {{ contact.email }}</p>
         <p>Téléphone : {{ contact.telephone }}</p>
         <p>Adresse : {{ contact.adresse }}</p>
     </div>
-    
 
     <!-- Table des expériences professionnelles -->
     <div class="section-title">Expérience Professionnelle</div>
@@ -136,6 +157,11 @@
         {% endfor %}
     </table>
 </div>
-<button style="color: white; background-color: red; font-size: 30px;">telecharger</button>
+
+<!-- Bouton de téléchargement -->
+<a href="{% url 'telecharger_cv' %}" class="download-button">Télécharger</a>
+<a class="btncompte" href="{% url 'boite' %}">REVENIR A LA PAGE D'ACCEUIL</a>
+<a href="{{ request.META.HTTP_REFERER|default:'/' }}">Retour</a>
+
 </body>
 </html>

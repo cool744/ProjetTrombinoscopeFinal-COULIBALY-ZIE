@@ -7,10 +7,29 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'create_experience.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Style pour le lien trombinoscope */
+        .trombinoscope-link {
+            font-weight: bold;
+            color: #ff6347; /* Couleur tomate pour attirer l'attention */
+            transition: all 0.3s ease;
+        }
+
+        .trombinoscope-link:hover {
+            color: white;
+            background-color: #ff6347; /* Change la couleur de fond lors du survol */
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .trombinoscope-link:active {
+            transform: scale(1.1); /* Ajoute un effet d'agrandissement au clic */
+        }
+    </style>
 </head>
 <body>
-    <!-- Barre de navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+     <!-- Barre de navigation -->
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Mon CV</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -42,6 +61,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'create_cv' %}">Créer un CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'trombinoscope' %}">DECONNECTION</a>
                     </li>
                 </ul>
             </div>
@@ -79,6 +101,8 @@
             </div>
         </form>
     </div>
+    <a class="btncompte" href="{% url 'boite' %}">REVENIR A LA PAGE D'ACCEUIL</a>
+    <a href="{{ request.META.HTTP_REFERER|default:'/' }}">Retour</a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

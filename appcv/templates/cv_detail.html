@@ -168,5 +168,8 @@
             <p>CV généré le {{ cv.date_creation|date:"d/m/Y" }}</p>
         </div>
     </div>
+    <a class="btncompte" href="{% url 'boite' %}">REVENIR A LA PAGE D'ACCEUIL</a>
+    <a href="{{ request.META.HTTP_REFERER|default:'/' }}">Retour</a>
+
 </body>
 </html>

@@ -50,10 +50,48 @@
             margin: 6px 0;
             font-size: 16px;
         }
+        .action-buttons {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .action-buttons button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+        }
+        .btn-print {
+            background-color: #27ae60;
+        }
+        .btn-download {
+            background-color: #3498db;
+        }
+        .btn-email {
+            background-color: #e67e22;
+        }
+        .action-buttons button:hover {
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
     <div class="cv-container">
+        <!-- Boutons d'action -->
+        <div class="action-buttons">
+            <!-- Bouton pour imprimer -->
+            <button class="btn-print" onclick="window.print()">Imprimer</button>
+
+
+            <!-- Bouton pour envoyer par e-mail -->
+            <form action="{% url 'send_cv_email' cv.id %}" method="GET" style="display:inline;">
+                {% csrf_token %}
+                <button class="btn-email" type="submit">Envoyer par e-mail</button>
+            </form>
+        </div>
+
         <div class="cv-header">
             <h1>{{ cv.personne.nom }} {{ cv.personne.prenom }}</h1>
             <p>{{ cv.contact.email }} | {{ cv.contact.telephone }}</p>
@@ -114,5 +152,8 @@
             </div>
         </div>
     </div>
+    <a class="btncompte" href="{% url 'boite' %}">REVENIR A LA PAGE D'ACCEUIL</a>
+    <a href="{{ request.META.HTTP_REFERER|default:'/' }}">Retour</a>
+
 </body>
 </html>

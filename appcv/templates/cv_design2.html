@@ -143,6 +143,10 @@
             </div>
         </div>
     </div>
+    
+    <a class="btncompte" href="{% url 'boite' %}">REVENIR A LA PAGE D'ACCEUIL</a>
+    <a href="{{ request.META.HTTP_REFERER|default:'/' }}">Retour</a>
+
 </body>
 
 </html>
